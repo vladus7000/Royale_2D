@@ -1,13 +1,13 @@
 {
 	"ru" :
 	{
-		"main_menu_play":"Играть",
+		"main_menu_landing":"Высадка",
 		"main_menu_settings":"Настройки",
 		"main_menu_quit":"Выход"
 	},
 	"en" :
 	{
-		"main_menu_play":"Play",
+		"main_menu_landing":"Landing",
 		"main_menu_settings":"Settings",
 		"main_menu_quit":"Quit"
 	}

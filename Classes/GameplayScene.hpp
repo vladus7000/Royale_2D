@@ -14,4 +14,10 @@ public:
     
     // implement the "static create()" method manually
     CREATE_FUNC(GameplayScene);
+
+private:
+    virtual void update(float delta) override;
+
+private:
+    cocos2d::Label* m_status;
 };

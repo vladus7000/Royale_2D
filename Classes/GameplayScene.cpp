@@ -14,11 +14,8 @@ static void problemLoading(const char* filename)
     printf("Depending on how you compiled you might have to add 'Resources/' in front of filenames in HelloWorldScene.cpp\n");
 }
 
-// on "init" you need to initialize your instance
 bool GameplayScene::init()
 {
-    //////////////////////////////
-    // 1. super init first
     if ( !Scene::init() )
     {
         return false;
@@ -27,11 +24,6 @@ bool GameplayScene::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
     auto closeItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
@@ -55,25 +47,19 @@ bool GameplayScene::init()
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
-    /////////////////////////////
-    // 3. add your codes below...
-
-    // add a label shows "Hello World"
-    // create and initialize a label
-
-    auto label = Label::createWithTTF("Royal 2D", "fonts/Marker Felt.ttf", 24);
-    if (label == nullptr)
+    m_status = Label::createWithTTF("Royal 2D", "fonts/Marker Felt.ttf", 24);
+    if (m_status == nullptr)
     {
         problemLoading("'fonts/Marker Felt.ttf'");
     }
     else
     {
         // position the label on the center of the screen
-        label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                                origin.y + visibleSize.height - label->getContentSize().height));
+        m_status->setPosition(Vec2(origin.x + visibleSize.width/2,
+                                origin.y + visibleSize.height-20));
 
         // add the label as a child to this layer
-        this->addChild(label, 1);
+        this->addChild(m_status, 1);
     }
 
     // add "HelloWorld" splash screen"
@@ -90,6 +76,42 @@ bool GameplayScene::init()
         // add the sprite as a child to this layer
         this->addChild(sprite, 0);
     }
+
+    auto keyboardListener = EventListenerKeyboard::create();
+    auto mouseListener = EventListenerMouse::create();
+
+    Director::getInstance()->getOpenGLView()->setIMEKeyboardState(true);
+
+    keyboardListener->onKeyPressed = [this](EventKeyboard::KeyCode keyCode, Event* event)
+    {
+        if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
+        {
+            m_status->setString("onKeyPressed");
+        }
+    };
+
+    keyboardListener->onKeyReleased = [this](EventKeyboard::KeyCode keyCode, Event* event)
+    {
+        m_status->setString("onKeyReleased");
+    };
+
+    mouseListener->onMouseDown = [this](EventMouse* event)
+    {
+        m_status->setString("onMouseDown");
+    };
+
+    mouseListener->onMouseUp = [this](EventMouse* event)
+    {
+        m_status->setString("onMouseUp");
+    };
+
+    mouseListener->onMouseMove = [this](EventMouse* event)
+    {
+        m_status->setString("onMouseMove");
+    };
+
+    this->_eventDispatcher->addEventListenerWithSceneGraphPriority(keyboardListener, this);
+    this->_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
     return true;
 }
 
@@ -97,4 +119,9 @@ bool GameplayScene::init()
 void GameplayScene::menuCloseCallback(Ref* pSender)
 {
     Director::getInstance()->end();
+}
+
+void GameplayScene::update(float delta)
+{
+
 }
