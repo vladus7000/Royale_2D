@@ -1,10 +1,10 @@
-#include "Royal2DScene.h"
+#include "GameplayScene.hpp"
 
 USING_NS_CC;
 
-Scene* Royal2D::createScene()
+Scene* GameplayScene::createScene()
 {
-    return Royal2D::create();
+    return GameplayScene::create();
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -15,7 +15,7 @@ static void problemLoading(const char* filename)
 }
 
 // on "init" you need to initialize your instance
-bool Royal2D::init()
+bool GameplayScene::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -35,7 +35,7 @@ bool Royal2D::init()
     auto closeItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
-                                           CC_CALLBACK_1(Royal2D::menuCloseCallback, this));
+                                           CC_CALLBACK_1(GameplayScene::menuCloseCallback, this));
 
     if (closeItem == nullptr ||
         closeItem->getContentSize().width <= 0 ||
@@ -94,13 +94,7 @@ bool Royal2D::init()
 }
 
 
-void Royal2D::menuCloseCallback(Ref* pSender)
+void GameplayScene::menuCloseCallback(Ref* pSender)
 {
-    //Close the cocos2d-x game scene and quit the application
     Director::getInstance()->end();
-
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
 }

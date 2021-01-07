@@ -1,9 +1,8 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#pragma once
 
 #include "cocos2d.h"
 
-class Royal2D : public cocos2d::Scene
+class GameplayScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
@@ -14,7 +13,5 @@ public:
     void menuCloseCallback(cocos2d::Ref* pSender);
     
     // implement the "static create()" method manually
-    CREATE_FUNC(Royal2D);
+    CREATE_FUNC(GameplayScene);
 };
-
-#endif // __HELLOWORLD_SCENE_H__
