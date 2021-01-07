@@ -2,6 +2,27 @@
 
 USING_NS_CC;
 
+GameplayScene::GameplayScene()
+    : m_status(nullptr)
+    , m_pauseMenu(this)
+    , m_keyboardListener(nullptr)
+    , m_mouseListener(nullptr)
+{
+}
+
+GameplayScene::~GameplayScene()
+{
+    if (m_keyboardListener)
+    {
+        m_keyboardListener->release();
+    }
+
+    if (m_mouseListener)
+    {
+        m_mouseListener->release();
+    }
+}
+
 Scene* GameplayScene::createScene()
 {
     return GameplayScene::create();
@@ -77,44 +98,67 @@ bool GameplayScene::init()
         this->addChild(sprite, 0);
     }
 
-    auto keyboardListener = EventListenerKeyboard::create();
-    auto mouseListener = EventListenerMouse::create();
+    m_keyboardListener = EventListenerKeyboard::create();
+    m_keyboardListener->retain();
+    m_mouseListener = EventListenerMouse::create();
+    m_mouseListener->retain();
 
     Director::getInstance()->getOpenGLView()->setIMEKeyboardState(true);
 
-    keyboardListener->onKeyPressed = [this](EventKeyboard::KeyCode keyCode, Event* event)
+    m_keyboardListener->onKeyPressed = [this](EventKeyboard::KeyCode keyCode, Event* event)
     {
         if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
         {
-            m_status->setString("onKeyPressed");
+            m_pauseMenu.toggle();
         }
+        m_status->setString("onKeyPressed");
     };
 
-    keyboardListener->onKeyReleased = [this](EventKeyboard::KeyCode keyCode, Event* event)
+    m_keyboardListener->onKeyReleased = [this](EventKeyboard::KeyCode keyCode, Event* event)
     {
         m_status->setString("onKeyReleased");
     };
 
-    mouseListener->onMouseDown = [this](EventMouse* event)
+    m_mouseListener->onMouseDown = [this](EventMouse* event)
     {
         m_status->setString("onMouseDown");
     };
 
-    mouseListener->onMouseUp = [this](EventMouse* event)
+    m_mouseListener->onMouseUp = [this](EventMouse* event)
     {
         m_status->setString("onMouseUp");
     };
 
-    mouseListener->onMouseMove = [this](EventMouse* event)
+    m_mouseListener->onMouseMove = [this](EventMouse* event)
     {
         m_status->setString("onMouseMove");
     };
 
-    this->_eventDispatcher->addEventListenerWithSceneGraphPriority(keyboardListener, this);
-    this->_eventDispatcher->addEventListenerWithSceneGraphPriority(mouseListener, this);
+    enableInput();
     return true;
 }
 
+void GameplayScene::enableInput()
+{
+    this->_eventDispatcher->addEventListenerWithSceneGraphPriority(m_keyboardListener, this);
+    this->_eventDispatcher->addEventListenerWithSceneGraphPriority(m_mouseListener, this);
+}
+
+void GameplayScene::disableInput()
+{
+    this->_eventDispatcher->removeEventListener(m_keyboardListener);
+    this->_eventDispatcher->removeEventListener(m_mouseListener);
+}
+
+void GameplayScene::setPauseMenuInput(EventListenerKeyboard* k)
+{
+    this->_eventDispatcher->addEventListenerWithFixedPriority(k, 1);
+}
+
+void GameplayScene::removePauseMenuInput(cocos2d::EventListenerKeyboard* k)
+{
+    this->_eventDispatcher->removeEventListener(k);
+}
 
 void GameplayScene::menuCloseCallback(Ref* pSender)
 {

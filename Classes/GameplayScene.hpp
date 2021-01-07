@@ -1,14 +1,23 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "PauseMenu.hpp"
 
 class GameplayScene : public cocos2d::Scene
 {
 public:
+    GameplayScene();
+    ~GameplayScene();
     static cocos2d::Scene* createScene();
 
     virtual bool init();
-    
+
+    void enableInput();
+    void disableInput();
+
+    void setPauseMenuInput(cocos2d::EventListenerKeyboard* k);
+    void removePauseMenuInput(cocos2d::EventListenerKeyboard* k);
+
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
     
@@ -20,4 +29,7 @@ private:
 
 private:
     cocos2d::Label* m_status;
+    PauseMenu m_pauseMenu;
+    cocos2d::EventListenerKeyboard* m_keyboardListener;
+    cocos2d::EventListenerMouse* m_mouseListener;
 };

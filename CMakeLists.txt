@@ -34,11 +34,13 @@ list(APPEND GAME_SOURCE
      Classes/AppDelegate.cpp
      Classes/GameplayScene.cpp
 	 Classes/MainMenuScene.cpp
+	 Classes/PauseMenu.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.hpp
      Classes/GameplayScene.hpp
 	 Classes/MainMenuScene.hpp
+	 Classes/PauseMenu.hpp
      )
 
 if(ANDROID)
