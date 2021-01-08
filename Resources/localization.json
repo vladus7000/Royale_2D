@@ -3,12 +3,18 @@
 	{
 		"main_menu_landing":"Высадка",
 		"main_menu_settings":"Настройки",
-		"main_menu_quit":"Выход"
+		"main_menu_quit":"Выход",
+		"pause_menu_resume":"Продолжить",
+		"pause_menu_exit_to_menu":"Выход в меню",
+		"pause_menu_exit_to_windows":"Выход в Windows"
 	},
 	"en" :
 	{
 		"main_menu_landing":"Landing",
 		"main_menu_settings":"Settings",
-		"main_menu_quit":"Quit"
+		"main_menu_quit":"Quit",
+		"pause_menu_resume":"Continue",
+		"pause_menu_exit_to_menu":"Exit to main menu",
+		"pause_menu_exit_to_windows":"Exit to Windows"
 	}
 }

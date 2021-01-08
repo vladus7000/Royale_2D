@@ -41,6 +41,7 @@ list(APPEND GAME_HEADER
      Classes/GameplayScene.hpp
 	 Classes/MainMenuScene.hpp
 	 Classes/PauseMenu.hpp
+	 Classes/LayoutSettings.hpp
      )
 
 if(ANDROID)

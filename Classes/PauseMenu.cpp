@@ -1,5 +1,7 @@
 #include "PauseMenu.hpp"
 #include "GameplayScene.hpp"
+#include "LayoutSettings.hpp"
+#include "MainMenuScene.hpp"
 
 USING_NS_CC;
 
@@ -42,7 +44,7 @@ void PauseMenu::toggle()
     m_isHide = !m_isHide;
     updateState();
 }
-
+std::string getStringForKey(const std::string& key);
 void PauseMenu::updateState()
 {
     if (m_isHide)
@@ -59,6 +61,55 @@ void PauseMenu::updateState()
             m_background = Sprite::create("pause_background.png");
             m_background->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
             m_background->setOpacity(80);
+
+            Vector<MenuItem*> labels;
+            auto label = Label::createWithTTF(getStringForKey("pause_menu_resume"), LayoutSettings::menuFont, LayoutSettings::fontSize);
+            auto menuItem = MenuItemLabel::create(label,
+                [this](Ref* pSender)
+            {
+                hide();
+                m_gameplay->enableInput();
+            }
+            );
+            labels.pushBack(menuItem);
+
+            label = Label::createWithTTF(getStringForKey("main_menu_settings"), LayoutSettings::menuFont, LayoutSettings::fontSize);
+            menuItem = MenuItemLabel::create(label, [this](Ref* pSender) {});
+            labels.pushBack(menuItem);
+
+            label = Label::createWithTTF(getStringForKey("pause_menu_exit_to_menu"), LayoutSettings::menuFont, LayoutSettings::fontSize);
+            menuItem = MenuItemLabel::create(label, [this](Ref* pSender)
+                {
+                    hide();
+                    auto scene = MainMenu::createScene();
+                    Director::getInstance()->replaceScene(scene);
+                });
+            labels.pushBack(menuItem);
+
+            label = Label::createWithTTF(getStringForKey("pause_menu_exit_to_windows"), LayoutSettings::menuFont, LayoutSettings::fontSize);
+            menuItem = MenuItemLabel::create(label, [this](Ref* pSender)
+            {
+                Director::getInstance()->end();
+            });
+
+            labels.pushBack(menuItem);
+
+            for (int i = 0; i < labels.size(); i++)
+            {
+                MenuItemLabel* item = static_cast<MenuItemLabel*>(labels.at(i));
+
+                float x = origin.x + m_background->getContentSize().width * LayoutSettings::PauseMenuPercentageFromLeft + item->getContentSize().width / 2;
+                float y = origin.y + m_background->getContentSize().height * LayoutSettings::PauseMenuPercentageFromBottom - i * LayoutSettings::step;
+
+                item->setPosition(Vec2(x, y));
+            }
+
+            auto menu = Menu::createWithArray(labels);
+
+            menu->setPosition(Vec2::ZERO);
+            m_background->addChild(menu, 1);
+
+
             m_gameplay->addChild(m_background, 0);
         }
 
