@@ -35,6 +35,7 @@ list(APPEND GAME_SOURCE
      Classes/GameplayScene.cpp
 	 Classes/MainMenuScene.cpp
 	 Classes/PauseMenu.cpp
+	 Classes/LocalizationManager.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.hpp
@@ -42,6 +43,7 @@ list(APPEND GAME_HEADER
 	 Classes/MainMenuScene.hpp
 	 Classes/PauseMenu.hpp
 	 Classes/LayoutSettings.hpp
+	 Classes/LocalizationManager.hpp
      )
 
 if(ANDROID)

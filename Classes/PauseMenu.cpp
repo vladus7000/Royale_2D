@@ -2,6 +2,7 @@
 #include "GameplayScene.hpp"
 #include "LayoutSettings.hpp"
 #include "MainMenuScene.hpp"
+#include "LocalizationManager.hpp"
 
 USING_NS_CC;
 
@@ -44,7 +45,7 @@ void PauseMenu::toggle()
     m_isHide = !m_isHide;
     updateState();
 }
-std::string getStringForKey(const std::string& key);
+
 void PauseMenu::updateState()
 {
     if (m_isHide)
@@ -63,7 +64,7 @@ void PauseMenu::updateState()
             m_background->setOpacity(80);
 
             Vector<MenuItem*> labels;
-            auto label = Label::createWithTTF(getStringForKey("pause_menu_resume"), LayoutSettings::menuFont, LayoutSettings::fontSize);
+            auto label = Label::createWithTTF(LocalizationManager::get().getStringForKey("pause_menu_resume"), LayoutSettings::menuFont, LayoutSettings::fontSize);
             auto menuItem = MenuItemLabel::create(label,
                 [this](Ref* pSender)
             {
@@ -73,11 +74,11 @@ void PauseMenu::updateState()
             );
             labels.pushBack(menuItem);
 
-            label = Label::createWithTTF(getStringForKey("main_menu_settings"), LayoutSettings::menuFont, LayoutSettings::fontSize);
+            label = Label::createWithTTF(LocalizationManager::get().getStringForKey("main_menu_settings"), LayoutSettings::menuFont, LayoutSettings::fontSize);
             menuItem = MenuItemLabel::create(label, [this](Ref* pSender) {});
             labels.pushBack(menuItem);
 
-            label = Label::createWithTTF(getStringForKey("pause_menu_exit_to_menu"), LayoutSettings::menuFont, LayoutSettings::fontSize);
+            label = Label::createWithTTF(LocalizationManager::get().getStringForKey("pause_menu_exit_to_menu"), LayoutSettings::menuFont, LayoutSettings::fontSize);
             menuItem = MenuItemLabel::create(label, [this](Ref* pSender)
                 {
                     hide();
@@ -86,7 +87,7 @@ void PauseMenu::updateState()
                 });
             labels.pushBack(menuItem);
 
-            label = Label::createWithTTF(getStringForKey("pause_menu_exit_to_windows"), LayoutSettings::menuFont, LayoutSettings::fontSize);
+            label = Label::createWithTTF(LocalizationManager::get().getStringForKey("pause_menu_exit_to_windows"), LayoutSettings::menuFont, LayoutSettings::fontSize);
             menuItem = MenuItemLabel::create(label, [this](Ref* pSender)
             {
                 Director::getInstance()->end();

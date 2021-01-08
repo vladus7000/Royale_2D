@@ -1,26 +1,9 @@
 #include "MainMenuScene.hpp"
 #include "GameplayScene.hpp"
 #include "LayoutSettings.hpp"
-
-#include "cocos-ext.h"
-#include <CCFileUtils.h>
-
-using namespace rapidjson;
+#include "LocalizationManager.hpp"
 
 USING_NS_CC;
-Document document;
-
-void InitLocalization()
-{
-    std::string filename("localization.json");
-    Data d = FileUtils::getInstance()->getDataFromFile(filename);
-    document.Parse((char*)d.getBytes(), d.getSize());
-}
-
-std::string getStringForKey(const std::string& key)
-{
-    return document["ru"][key.c_str()].GetString();
-}
 
 Scene* MainMenu::createScene()
 {
@@ -34,13 +17,11 @@ bool MainMenu::init()
         return false;
     }
 
-    InitLocalization();
-
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     Vector<MenuItem*> labels;
-    auto label = Label::createWithTTF(getStringForKey("main_menu_landing"), LayoutSettings::menuFont, LayoutSettings::fontSize);
+    auto label = Label::createWithTTF(LocalizationManager::get().getStringForKey("main_menu_landing12"), LayoutSettings::menuFont, LayoutSettings::fontSize);
     auto menuItem = MenuItemLabel::create(label,
         [this](Ref* pSender)
             {
@@ -50,11 +31,11 @@ bool MainMenu::init()
         );
     labels.pushBack(menuItem);
 
-    label = Label::createWithTTF(getStringForKey("main_menu_settings"), LayoutSettings::menuFont, LayoutSettings::fontSize);
+    label = Label::createWithTTF(LocalizationManager::get().getStringForKey("main_menu_settings"), LayoutSettings::menuFont, LayoutSettings::fontSize);
     menuItem = MenuItemLabel::create(label, [this](Ref* pSender) {});
     labels.pushBack(menuItem);
 
-    label = Label::createWithTTF(getStringForKey("main_menu_quit"), LayoutSettings::menuFont, LayoutSettings::fontSize);
+    label = Label::createWithTTF(LocalizationManager::get().getStringForKey("main_menu_quit"), LayoutSettings::menuFont, LayoutSettings::fontSize);
     menuItem = MenuItemLabel::create(label, [this](Ref* pSender) { Director::getInstance()->end(); });
     labels.pushBack(menuItem);
 
