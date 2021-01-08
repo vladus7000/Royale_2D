@@ -3,6 +3,17 @@
 #include "cocos2d.h"
 #include "PauseMenu.hpp"
 
+enum class MatchState
+{
+    Parachuting,
+    OnGround
+};
+
+enum class GameplayKeys
+{
+    W, A, S, D, Space
+};
+
 class GameplayScene : public cocos2d::Scene
 {
 public:
@@ -32,4 +43,8 @@ private:
     PauseMenu m_pauseMenu;
     cocos2d::EventListenerKeyboard* m_keyboardListener;
     cocos2d::EventListenerMouse* m_mouseListener;
+    MatchState m_matchState = MatchState::Parachuting;
+    cocos2d::Sprite* m_character = nullptr;
+    cocos2d::Vec2 m_velocity = {0.0f, 0.0f};
+    bool m_gameplayKeys[(unsigned int)GameplayKeys::Space] = {false};
 };
