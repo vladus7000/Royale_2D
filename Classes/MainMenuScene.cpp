@@ -21,7 +21,7 @@ bool MainMenu::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     Vector<MenuItem*> labels;
-    auto label = Label::createWithTTF(LocalizationManager::get().getStringForKey("main_menu_landing12"), LayoutSettings::menuFont, LayoutSettings::fontSize);
+    auto label = Label::createWithTTF(LocalizationManager::get().getStringForKey("main_menu_landing"), LayoutSettings::menuFont, LayoutSettings::fontSize);
     auto menuItem = MenuItemLabel::create(label,
         [this](Ref* pSender)
             {
