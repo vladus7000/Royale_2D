@@ -36,6 +36,11 @@ list(APPEND GAME_SOURCE
 	 Classes/MainMenuScene.cpp
 	 Classes/PauseMenu.cpp
 	 Classes/LocalizationManager.cpp
+	 Classes/Character.cpp
+	 Classes/GameManager.cpp
+	 Classes/PlayerManager.cpp
+	 Classes/PreLandingScene.cpp
+	 Classes/SaveManager.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.hpp
@@ -44,6 +49,11 @@ list(APPEND GAME_HEADER
 	 Classes/PauseMenu.hpp
 	 Classes/LayoutSettings.hpp
 	 Classes/LocalizationManager.hpp
+	 Classes/Character.hpp
+	 Classes/GameManager.hpp
+	 Classes/PlayerManager.hpp
+	 Classes/PreLandingScene.hpp
+	 Classes/SaveManager.hpp
      )
 
 if(ANDROID)

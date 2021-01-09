@@ -30,5 +30,5 @@ private:
 
 private:
     rapidjson::Document m_document;
-    Language m_language = Language::En;
+    Language m_language = Language::Ru;
 };
