@@ -111,7 +111,7 @@ void PauseMenu::updateState()
             m_background->addChild(menu, 1);
 
 
-            m_gameplay->addChild(m_background, 0);
+            m_gameplay->addChild(m_background, 2);
         }
 
         if (!m_keyboardListener)

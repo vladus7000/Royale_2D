@@ -54,6 +54,7 @@ list(APPEND GAME_HEADER
 	 Classes/PlayerManager.hpp
 	 Classes/PreLandingScene.hpp
 	 Classes/SaveManager.hpp
+	 Classes/GameplayKeys.hpp
      )
 
 if(ANDROID)
