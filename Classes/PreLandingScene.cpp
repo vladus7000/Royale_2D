@@ -46,20 +46,30 @@ bool PreLandingScene::init()
     menuItem->setPosition(Vec2(x, y));
     labels.pushBack(menuItem);
 
-    for (int i = 0; i < 8; i++)
+    GameManager::get().reset();
+
+    for (int i = 0; i < GameManager::get().getNumberStartingPoints(); i++)
     {
         label = Label::createWithTTF("[ ]", LayoutSettings::menuFont, LayoutSettings::fontSize);
 
         menuItem = MenuItemLabel::create(label, [this](Ref* pSender)
         {
-            if (!m_selected)
+            if (m_selectedIndex < 0)
             {
-                m_selected = true;
-                static_cast<MenuItemLabel*>(pSender)->setString("[+]");
-                static_cast<MenuItemLabel*>(pSender)->setColor(cocos2d::Color3B(0, 255, 0));
-                GameManager::get().setStartingCoord(static_cast<MenuItemLabel*>(pSender)->getPosition());
+                auto index = m_freeSlots[static_cast<MenuItemLabel*>(pSender)];
+                if (GameManager::get().isStartingPointFree(index))
+                {
+                    static_cast<MenuItemLabel*>(pSender)->setString("[+]");
+                    static_cast<MenuItemLabel*>(pSender)->setColor(cocos2d::Color3B(0, 255, 0));
+                    GameManager::get().setPlayerStartingCoord(static_cast<MenuItemLabel*>(pSender)->getPosition());
+
+                    m_selectedIndex = index;
+                    GameManager::get().setPointOccupied(index);
+                }
             }
         });
+
+        m_freeSlots[menuItem] = i;
 
         const float Rx = 550.0f;
         const float Ry = 400.0f;
@@ -108,13 +118,39 @@ bool PreLandingScene::init()
 
 void PreLandingScene::update(float delta)
 {
+    GameManager::get().update(delta);
+
     m_selectTimer += delta;
 
     m_loadingBar->setPercent(100.0f * (m_selectTimer / m_timeToSelect));
 
     if (m_loadingBar->getPercent() == 100)
     {
+        if (m_selectedIndex < 0)
+        {
+            for (auto it : m_freeSlots)
+            {
+                if (GameManager::get().isStartingPointFree(it.second))
+                {
+                    m_selectedIndex = it.second;
+                    GameManager::get().setPointOccupied(it.second);
+                    GameManager::get().setPlayerStartingCoord(it.first->getPosition());
+                }
+            }
+        }
+
         auto scene = GameplayScene::createScene();
         Director::getInstance()->replaceScene(scene);
+    }
+
+    for (auto it : m_freeSlots)
+    {
+        if (!GameManager::get().isStartingPointFree(it.second))
+        {
+            if (m_selectedIndex != it.second)
+            {
+                it.first->setColor(cocos2d::Color3B(255, 0, 0));
+            }
+        }
     }
 }

@@ -61,7 +61,7 @@ void PauseMenu::updateState()
             Vec2 origin = Director::getInstance()->getVisibleOrigin();
             m_background = Sprite::create("pause_background.png");
             m_background->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-            m_background->setOpacity(80);
+            m_background->setOpacity(120);
 
             Vector<MenuItem*> labels;
             auto label = Label::createWithTTF(LocalizationManager::get().getStringForKey("pause_menu_resume"), LayoutSettings::menuFont, LayoutSettings::fontSize);

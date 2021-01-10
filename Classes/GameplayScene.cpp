@@ -254,7 +254,7 @@ void GameplayScene::initCharacters()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     PlayerManager::get().reset();
 
-    PlayerManager::get().getPlayerCharacter()->setPosition(GameManager::get().getStartingCoord()); //Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+    PlayerManager::get().getPlayerCharacter()->setPosition(GameManager::get().getPlayerStartingCoord());
 
     this->addChild(PlayerManager::get().getPlayerCharacter()->getSprite(), 0);
 }
