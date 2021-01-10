@@ -1,5 +1,6 @@
 #include "GameplayScene.hpp"
 #include "PlayerManager.hpp"
+#include "GameManager.hpp"
 
 USING_NS_CC;
 
@@ -253,7 +254,7 @@ void GameplayScene::initCharacters()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     PlayerManager::get().reset();
 
-    PlayerManager::get().getPlayerCharacter()->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+    PlayerManager::get().getPlayerCharacter()->setPosition(GameManager::get().getStartingCoord()); //Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
     this->addChild(PlayerManager::get().getPlayerCharacter()->getSprite(), 0);
 }
@@ -282,7 +283,7 @@ void GameplayScene::initClouds()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 20; i++)
     {
         auto cloud = Sprite::create("cloud.png");
 
@@ -293,7 +294,7 @@ void GameplayScene::initClouds()
         auto opacity = cocos2d::RandomHelper::random_int(120, 210);
         cloud->setOpacity(opacity);
 
-        auto scale = cocos2d::RandomHelper::random_real(0.4f, 1.2f);
+        auto scale = cocos2d::RandomHelper::random_real(0.8f, 1.6f);
         cloud->setScale(scale);
 
         x = cocos2d::RandomHelper::random_real(-300.0f, 300.0f);

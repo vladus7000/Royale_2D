@@ -1,5 +1,5 @@
 #include "MainMenuScene.hpp"
-#include "GameplayScene.hpp"
+#include "PreLandingScene.hpp"
 #include "LayoutSettings.hpp"
 #include "LocalizationManager.hpp"
 
@@ -25,7 +25,7 @@ bool MainMenu::init()
     auto menuItem = MenuItemLabel::create(label,
         [this](Ref* pSender)
             {
-                auto scene = GameplayScene::createScene();
+                auto scene = PreLandingScene::createScene();
                 Director::getInstance()->replaceScene(scene);
             }
         );

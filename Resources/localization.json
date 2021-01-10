@@ -6,7 +6,9 @@
 		"main_menu_quit":"Выход",
 		"pause_menu_resume":"Продолжить",
 		"pause_menu_exit_to_menu":"Выход в меню",
-		"pause_menu_exit_to_windows":"Выход в Windows"
+		"pause_menu_exit_to_windows":"Выход в Windows",
+		"prelanding_start" : "Начать",
+		"prelanding_back" : "Назад"
 	},
 	"en" :
 	{
@@ -15,6 +17,8 @@
 		"main_menu_quit":"Quit",
 		"pause_menu_resume":"Continue",
 		"pause_menu_exit_to_menu":"Exit to main menu",
-		"pause_menu_exit_to_windows":"Exit to Windows"
+		"pause_menu_exit_to_windows":"Exit to Windows",
+		"prelanding_start" : "Start",
+		"prelanding_back" : "Back"
 	}
 }

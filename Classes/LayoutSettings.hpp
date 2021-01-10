@@ -17,4 +17,6 @@ namespace LayoutSettings
     const float MainMenuPercentageFromBottom = 0.75f;
     const float PauseMenuPercentageFromLeft = 0.1f;
     const float PauseMenuPercentageFromBottom = 0.75f;
+    const float PreLandingPercentageFromLeft = 0.1f;
+    const float PreLandingPercentageFromBottom = 0.08f;
 }
