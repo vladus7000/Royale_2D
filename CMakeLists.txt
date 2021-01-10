@@ -41,6 +41,7 @@ list(APPEND GAME_SOURCE
 	 Classes/PlayerManager.cpp
 	 Classes/PreLandingScene.cpp
 	 Classes/SaveManager.cpp
+	 Classes/SettingsScene.cpp
      )
 list(APPEND GAME_HEADER
      Classes/AppDelegate.hpp
@@ -55,6 +56,7 @@ list(APPEND GAME_HEADER
 	 Classes/PreLandingScene.hpp
 	 Classes/SaveManager.hpp
 	 Classes/GameplayKeys.hpp
+	 Classes/SettingsScene.hpp
      )
 
 if(ANDROID)

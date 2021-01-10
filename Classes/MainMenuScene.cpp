@@ -1,6 +1,7 @@
 #include "MainMenuScene.hpp"
 #include "PreLandingScene.hpp"
 #include "LayoutSettings.hpp"
+#include "SettingsScene.hpp"
 #include "LocalizationManager.hpp"
 
 USING_NS_CC;
@@ -32,7 +33,11 @@ bool MainMenu::init()
     labels.pushBack(menuItem);
 
     label = Label::createWithTTF(LocalizationManager::get().getStringForKey("main_menu_settings"), LayoutSettings::menuFont, LayoutSettings::fontSize);
-    menuItem = MenuItemLabel::create(label, [this](Ref* pSender) {});
+    menuItem = MenuItemLabel::create(label, [this](Ref* pSender)
+    {
+        auto scene = SettingsScene::createScene();
+        Director::getInstance()->pushScene(scene);
+    });
     labels.pushBack(menuItem);
 
     label = Label::createWithTTF(LocalizationManager::get().getStringForKey("main_menu_quit"), LayoutSettings::menuFont, LayoutSettings::fontSize);

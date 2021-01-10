@@ -2,6 +2,7 @@
 #include "GameplayScene.hpp"
 #include "LayoutSettings.hpp"
 #include "MainMenuScene.hpp"
+#include "SettingsScene.hpp"
 #include "LocalizationManager.hpp"
 
 USING_NS_CC;
@@ -75,7 +76,11 @@ void PauseMenu::updateState()
             labels.pushBack(menuItem);
 
             label = Label::createWithTTF(LocalizationManager::get().getStringForKey("main_menu_settings"), LayoutSettings::menuFont, LayoutSettings::fontSize);
-            menuItem = MenuItemLabel::create(label, [this](Ref* pSender) {});
+            menuItem = MenuItemLabel::create(label, [this](Ref* pSender)
+            {
+                auto scene = SettingsScene::createScene();
+                Director::getInstance()->pushScene(scene);
+            });
             labels.pushBack(menuItem);
 
             label = Label::createWithTTF(LocalizationManager::get().getStringForKey("pause_menu_exit_to_menu"), LayoutSettings::menuFont, LayoutSettings::fontSize);
